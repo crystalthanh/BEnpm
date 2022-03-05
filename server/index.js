@@ -8,7 +8,6 @@ const connectDB = require('./common/database');
 const userRouter = require('./routers/userRouter');
 
 connectDB();
-app.use(userRouter);
 
 
 const app = express();
@@ -18,6 +17,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
+app.use('/', userRouter);
+
 app.use('/posts', posts);
 app.get('/', (req, res) => {
     res.send('SERVER SUCCESS');

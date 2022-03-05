@@ -5,13 +5,8 @@ const Schema = mongoose.Schema;
 
 
 const crudUser = new Schema({
-    firstName: {
-        type: String,
-        lowercase: true
-    },
-    lastName: {
-        type: String,
-        lowercase: true
+    fullName: {
+        type: String
     },
     email: {
         type: String,
@@ -28,7 +23,7 @@ const crudUser = new Schema({
         minlength: 10,
         default: "",
     },
-    address1: {
+    address: {
         type: String,
     },
     sex: {
@@ -37,7 +32,7 @@ const crudUser = new Schema({
     }
 });
 
-userSchema.methods.comparePassword = async function(candidatePassword) {
+crudUser.methods.comparePassword = async function(candidatePassword) {
     try {
         return await bcrypt.compare(candidatePassword, this.password);
     } catch (error) {
@@ -45,5 +40,5 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     }
 };
 
-let UserModel = mongoose.model('users', userSchema)
+const UserModel = mongoose.model('Users', crudUser)
 module.exports = UserModel
