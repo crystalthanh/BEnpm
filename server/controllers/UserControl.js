@@ -1,18 +1,19 @@
 const UserModel = require("../models/UserModel")
 
 const createUser = async(req, res) => {
-    const { fullName, email, password, phoneNumber } = req.body
+    const { fullName, email, password, phoneNumber, address, sex } = req.body
         // check user is exsit
-    try {
-        if (email || phoneNumber) {
-            const foundUser = await UserModel.findOne({ email, phoneNumber })
-            if (foundUser) return responseSuccess(res, 301, "Email or phone is already exist")
-        }
-        const newUser = await new UserModel({ fullName, email, password, phoneNumber }).save()
-        res.send(newUser)
-    } catch (error) {
-        res.status(500).send(error);
+    if (email) {
+        const foundUser = await UserModel.findOne({ email })
+        if (foundUser) return responseSuccess(res, 301, "Email is already exist")
     }
+    const userId = await generateSequence("USER", prefix)
+    await new UserModel({ fullName, email, password, phoneNumber, address, sex, userId }).save()
+    return res.status(200).json({
+        status: 200,
+        success: true,
+        message: "",
+    });
 }
 
 const editUser = async(req, res) => {

@@ -11,7 +11,7 @@ connectDB();
 
 
 const app = express();
-const PORT = process.env.port || 5000;
+const PORT = process.env.port || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

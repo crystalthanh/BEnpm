@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 
 
 const crudUser = new Schema({
+    userId: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     fullName: {
         type: String
     },
@@ -16,6 +21,7 @@ const crudUser = new Schema({
     },
     password: {
         type: String,
+        required: true
     },
     phoneNumber: {
         type: String,
