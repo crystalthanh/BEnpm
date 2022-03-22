@@ -1,6 +1,5 @@
-const express = require('express');
+const router = require('express-promise-router')()
 
-const router = express.Router();
 
 router.get('/', (req, res) => {
     res.send('ROUTER conectting');

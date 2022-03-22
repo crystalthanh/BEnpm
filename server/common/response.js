@@ -6,3 +6,6 @@ const responseSuccess = (res, resultCode, message, data = null) => {
         data: data
     });
 }
+
+
+module.exports = responseSuccess

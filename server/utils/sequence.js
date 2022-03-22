@@ -1,22 +1,24 @@
 const SequenceModel = require("../models/SquenceModel");
 
-const generateSequence = async(key, prefix) => {
+// hàm 2 input
+// const generateSequence = async(key, number) => {
+const generateSequence = async(key) => {
     try {
-        sequence = await SequenceModel.findOne({ key: key, prefix: prefix })
+        const sequence = await SequenceModel.findOne({ key: key })
         if (sequence) {
             sequence.number = sequence.number + 1
             await sequence.save()
-            return `${key}-${prefix}-${sequence.number}`;
+            return `${key}-${sequence.number}`;
         } else {
-            let newSequence = await new SequenceModel({
+            const newSequence = await new SequenceModel({
                 key: key,
-                prefix: prefix,
                 number: 1
             }).save()
-            return `${key}-${prefix}-${newSequence.number}`;
+            return `${key}-${newSequence.number}`;
         }
     } catch (error) {
-        return 0;
+        console.log("🚀 ~ file: sequence.js ~ line 20 ~ generateSequence ~ error", error)
+        return null;
     }
 }
 

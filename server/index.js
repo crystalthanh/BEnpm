@@ -5,7 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 // import connectDB from './common/database.js';
 const connectDB = require('./common/database');
-const userRouter = require('./routers/userRouter');
 const appRouters = require('./routers');
 
 connectDB();

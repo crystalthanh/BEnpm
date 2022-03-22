@@ -1,13 +1,15 @@
-const express = require('express')
-const UserControl = require('../controllers/UserControl')
-const router = express.Router();
-const { createUser, deleteUser, editUser } = require('../controllers/UserControl');
+const router = require('express-promise-router')()
+const validate = require("../validation/index")
 
-router.route('/')
-    .post(UserControl.createUser)
+// const express = require('express')
+const UserControl = require('../controllers/UserControl')
+    // const router = express.Router();
+
+router.route('/user/{id}')
+    // .post(UserControl.createUser)
     .put(UserControl.editUser)
     .delete(UserControl.deleteUser)
-    // router.route('/editUser', editUser);
-    // router.route('/deleteUser', deleteUser);
-    // router.route('/getUser', getUser);
+
+router.route('/users')
+    .post(validate(userSchema), UserControl.createUser)
 module.exports = router;
