@@ -1,5 +1,5 @@
 const router = require('express-promise-router')()
-const validate = require("../validation/index")
+    // const validate = require("../validation/index")
 
 // const express = require('express')
 const UserControl = require('../controllers/UserControl')
@@ -11,5 +11,5 @@ router.route('/user/{id}')
     .delete(UserControl.deleteUser)
 
 router.route('/users')
-    .post(validate(userSchema), UserControl.createUser)
+    .post(UserControl.createUser)
 module.exports = router;
