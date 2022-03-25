@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 let bcrypt = require('bcryptjs');
-const { number } = require('joi');
-
+const AccoutModel = require('../models/AccoutModel');
+const CardModel = require('../models/CardModel')
 const Schema = mongoose.Schema;
 
 
@@ -42,26 +42,19 @@ const crudUser = new Schema({
     },
     account: {
         type: Schema.Types.ObjectId,
-        ref: 'Accout'
+        ref: AccoutModel
     },
     cardATM: {
         type: String,
-        ref: 'Card'
+        ref: CardModel
+    },
+    roles: {
+        type: String,
+        enum: ["student", "teacher", "admin"],
+        default: "student"
     }
 });
 
-const accoutUser = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        age: Number,
-        title: String
-    }
-});
-
-const card = new Schema({
-    seri: String,
-    bank: String
-});
 
 crudUser.methods.comparePassword = async function(candidatePassword) {
     try {
@@ -74,14 +67,12 @@ crudUser.methods.comparePassword = async function(candidatePassword) {
 
 
 const UserModel = mongoose.model('Users', crudUser)
-const AccoutModel = mongoose.model('Accout', accoutUser)
-const CardModel = mongoose.model('Card', card)
 module.exports = UserModel
 
-UserModel.find({
-        username: ''
-    })
-    .populate('Accout')
-    .populate('Card')
-    .then(data => { console.log(data); })
-    .catch(err => { console.log(err); })
+// UserModel.find({
+//         username: ''
+//     })
+//     .populate('Accout')
+//     .populate('Card')
+//     .then(data => { console.log(data); })
+//     .catch(err => { console.log(err); })
